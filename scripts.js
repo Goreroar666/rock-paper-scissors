@@ -47,3 +47,11 @@ function result() {
         return "It is a tie."
     }
 }
+
+const buttons = document.querySelectorAll('button');
+
+buttons.forEach(button => {
+    button.addEventListener('click', function () {
+        console.log(playRound(button.value, computerPlay));
+    })
+})
