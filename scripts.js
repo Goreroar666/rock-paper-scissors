@@ -4,21 +4,29 @@ const buttons = document.querySelectorAll('button');
 const computerChose = document.getElementById('computerChoice');
 const scoreBoard = document.getElementById('scoreboard');
 const endOfGame = document.getElementById('finalScore');
-let computerSelection = computerPlay();
+const reset = document.getElementById('restartButton');
 let computerScore = 0;
 let playerScore = 0;
 
+buttons.forEach(button => {
+    button.addEventListener('click', function () {
+        playRound(button.value, computerPlay)
+    })});  
+
 function computerPlay() {
-return options[Math.floor(Math.random() * options.length)];
+    return options[Math.floor(Math.random() * options.length)];
 }
 
+function check() {
+    if (playerScore === 5) {
+      endOfGame.textContent = "You won the game!"
+  } if (computerScore === 5) {
+      endOfGame.textContent = "You lost, the computer won the game!"
+  }
+}
 
-
-function playRound(playerSelection, computerSelection) {
-
-    if (playerSelection === null) {
-        result.textContent = "";
-    }
+function playRound(playerSelection, computerPlay) {
+    let computerSelection = computerPlay();
     if (playerSelection === computerSelection) {
         result.textContent = "It's a tie.";
     } if (playerSelection === "rock" && computerSelection === "scissors") {
@@ -40,19 +48,7 @@ function playRound(playerSelection, computerSelection) {
     result.textContent = "You lose, scissors beats paper.";
     computerScore ++;
 }
+computerChoice.textContent = `The computer picked: ${computerSelection}`;
+scoreBoard.textContent = `Your score: ${playerScore} | Computer score: ${computerScore}`;
+ check();
 }
-
-function check() {
-    if (playerScore === 5) {
-      endOfGame.textContent = "You won the game!"
-  } if (computerScore === 5) {
-      endOfGame.textContent = "You lost, the computer won the game!"
-  }
-}
-
-
-    buttons.forEach(button => {
-    button.addEventListener('click', function () {
-        (playRound(button.value, computerSelection));
-        console.log(playRound(button.value, computerSelection));
-    )}};
